@@ -17,6 +17,10 @@ public partial class MainWindow : Window
     private bool _isWebViewInitialized = false;
     private string _currentVideoPath = "";
     private string _currentWebUrl = "";
+    private System.Windows.Threading.DispatcherTimer _resourceMonitorTimer;
+    private System.Windows.Threading.DispatcherTimer _mouseForwardTimer;
+    private bool _isPausedByResourceMonitor = false;
+    private System.Windows.Point _lastMousePos;
     public int Volume
     {
         get => _mediaPlayer?.Volume ?? 0;
@@ -43,6 +47,14 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         _targetScreen = targetScreen ?? Screen.PrimaryScreen ?? throw new Exception("No primary screen detected.");
+        
+        _resourceMonitorTimer = new System.Windows.Threading.DispatcherTimer();
+        _resourceMonitorTimer.Interval = TimeSpan.FromSeconds(1);
+        _resourceMonitorTimer.Tick += ResourceMonitorTimer_Tick;
+
+        _mouseForwardTimer = new System.Windows.Threading.DispatcherTimer();
+        _mouseForwardTimer.Interval = TimeSpan.FromMilliseconds(16); // ~60fps
+        _mouseForwardTimer.Tick += MouseForwardTimer_Tick;
     }
 
     private void Window_SourceInitialized(object? sender, EventArgs e)
@@ -68,6 +80,7 @@ public partial class MainWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         UpdateSettings();
+        _resourceMonitorTimer.Start();
     }
 
     private void ConfigureBounds()
@@ -78,10 +91,118 @@ public partial class MainWindow : Window
         Height = _targetScreen.Bounds.Height;
     }
 
+    private void ResourceMonitorTimer_Tick(object? sender, EventArgs e)
+    {
+        bool shouldPause = false;
+
+        // 1. Check Battery
+        if (AppSettings.PauseOnBattery)
+        {
+            if (SystemInformation.PowerStatus.PowerLineStatus == System.Windows.Forms.PowerLineStatus.Offline)
+            {
+                shouldPause = true;
+            }
+        }
+
+        // 2. Check Fullscreen
+        if (!shouldPause && AppSettings.PauseOnFullscreen)
+        {
+            IntPtr fgWindow = DesktopHelper.GetForegroundWindow();
+            if (fgWindow != IntPtr.Zero)
+            {
+                // Ignore Desktop windows
+                IntPtr progman = DesktopHelper.FindWindow("Progman", null);
+                IntPtr workerw = DesktopHelper.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "WorkerW", null);
+                if (fgWindow != progman && fgWindow != workerw)
+                {
+                    if (DesktopHelper.GetWindowRect(fgWindow, out DesktopHelper.RECT rect))
+                    {
+                        int w = rect.Right - rect.Left;
+                        int h = rect.Bottom - rect.Top;
+                        if (w >= _targetScreen.Bounds.Width && h >= _targetScreen.Bounds.Height)
+                        {
+                            shouldPause = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (shouldPause)
+        {
+            if (!_isPausedByResourceMonitor)
+            {
+                _isPausedByResourceMonitor = true;
+                if (_mediaPlayer != null && _mediaPlayer.IsPlaying)
+                {
+                    _mediaPlayer.Pause();
+                }
+            }
+        }
+        else
+        {
+            if (_isPausedByResourceMonitor)
+            {
+                _isPausedByResourceMonitor = false;
+                if (_mediaPlayer != null && !_mediaPlayer.IsPlaying)
+                {
+                    _mediaPlayer.Play();
+                }
+            }
+        }
+    }
+
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    private static extern bool GetCursorPos(out POINT lpPoint);
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    private struct POINT
+    {
+        public int X;
+        public int Y;
+    }
+
+    private async void MouseForwardTimer_Tick(object? sender, EventArgs e)
+    {
+        if (WebPlayer.Visibility != Visibility.Visible || _isPausedByResourceMonitor) return;
+
+        if (GetCursorPos(out POINT p))
+        {
+            // Only forward if mouse moved
+            if (p.X != _lastMousePos.X || p.Y != _lastMousePos.Y)
+            {
+                _lastMousePos = new System.Windows.Point(p.X, p.Y);
+                double scaledX = p.X - Left; // Adjust for screen position
+                double scaledY = p.Y - Top;
+
+                if (scaledX >= 0 && scaledX <= Width && scaledY >= 0 && scaledY <= Height)
+                {
+                    string script = $@"
+                        var ev = new MouseEvent('mousemove', {{
+                            'view': window,
+                            'bubbles': true,
+                            'cancelable': true,
+                            'clientX': {scaledX},
+                            'clientY': {scaledY}
+                        }});
+                        document.dispatchEvent(ev);
+                    ";
+                    try
+                    {
+                        await WebPlayer.CoreWebView2.ExecuteScriptAsync(script);
+                    }
+                    catch { }
+                }
+            }
+        }
+    }
+
     public async void UpdateSettings()
     {
         string mode = AppSettings.WallpaperMode;
         string path = AppSettings.WallpaperPath;
+        
+        TaskbarHelper.SetTaskbarTransparent(AppSettings.TransparentTaskbar);
 
         if (string.IsNullOrEmpty(path)) 
         {
@@ -98,6 +219,7 @@ public partial class MainWindow : Window
             WebPlayer.Visibility = Visibility.Collapsed;
             WallpaperPlayer.Visibility = Visibility.Visible;
             if (_currentWebUrl != "") { _currentWebUrl = ""; }
+            _mouseForwardTimer.Stop();
             
             if (_currentVideoPath != path)
             {
@@ -200,6 +322,7 @@ public partial class MainWindow : Window
             WebPlayer.CoreWebView2.Navigate(urlOrPath);
         }
         _currentWebUrl = urlOrPath;
+        _mouseForwardTimer.Start();
     }
 
     public void TogglePlayPause()

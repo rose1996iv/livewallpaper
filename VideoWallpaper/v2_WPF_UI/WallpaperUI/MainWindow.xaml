@@ -25,6 +25,7 @@
             
             <StackPanel Grid.Column="0" Margin="0,0,20,0">
                 <ui:Button Content="Change Video/HTML" Icon="FolderOpen24" Appearance="Primary" HorizontalAlignment="Stretch" Click="ChangeVideo_Click" Margin="0,0,0,10" />
+                <ui:Button Content="Open Gallery" Icon="Image24" Appearance="Secondary" HorizontalAlignment="Stretch" Click="OpenGallery_Click" Margin="0,0,0,10" />
                 <ui:Button Content="Stop / Exit" Icon="Power24" Appearance="Danger" HorizontalAlignment="Stretch" Click="Exit_Click" />
             </StackPanel>
 
@@ -70,8 +71,47 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
+                            <TextBlock Text="Auto-Rotate Gallery Wallpapers" VerticalAlignment="Center" />
+                            <ui:ToggleSwitch x:Name="AutoRotateSwitch" Grid.Column="1" Checked="AutoRotateSwitch_Checked" Unchecked="AutoRotateSwitch_Unchecked" />
+                        </Grid>
+
+                        <TextBlock Text="Rotation Interval (Minutes)" VerticalAlignment="Center" Margin="0,0,0,5" />
+                        <Slider x:Name="RotateSlider" Minimum="1" Maximum="120" Value="15" ValueChanged="RotateSlider_ValueChanged" Margin="0,0,0,15" />
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Pause when a window is fullscreen (Games/Movies)" VerticalAlignment="Center" />
+                            <ui:ToggleSwitch x:Name="PauseFullscreenSwitch" Grid.Column="1" Checked="PauseFullscreenSwitch_Checked" Unchecked="PauseFullscreenSwitch_Unchecked" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Pause when on Battery power" VerticalAlignment="Center" />
+                            <ui:ToggleSwitch x:Name="PauseBatterySwitch" Grid.Column="1" Checked="PauseBatterySwitch_Checked" Unchecked="PauseBatterySwitch_Unchecked" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
                             <TextBlock Text="Mute Sound (Video Only)" VerticalAlignment="Center" />
                             <ui:ToggleSwitch x:Name="MuteSwitch" Grid.Column="1" Checked="MuteSwitch_Checked" Unchecked="MuteSwitch_Unchecked" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Make Taskbar Transparent" VerticalAlignment="Center" />
+                            <ui:ToggleSwitch x:Name="TaskbarSwitch" Grid.Column="1" Checked="TaskbarSwitch_Checked" Unchecked="TaskbarSwitch_Unchecked" />
                         </Grid>
 
                         <TextBlock Text="Volume" VerticalAlignment="Center" Margin="0,0,0,5" />

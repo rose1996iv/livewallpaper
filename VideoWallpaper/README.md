@@ -7,6 +7,11 @@ VideoWallpaper is a lightweight Windows desktop application built with C# and WP
 - **2-Process Architecture:** Split into a lightweight background engine and a beautiful UI dashboard, mirroring advanced software like Lively Wallpaper.
 - **Web & Video Support:** Set local video files (MP4, MKV), local HTML interactive pages, or live web URLs (like Shadertoy or YouTube) as your wallpaper using `LibVLCSharp` and `WebView2`.
 - **Multi-Monitor Support:** Automatically detects all connected displays and spans/tiles the live wallpapers across each screen flawlessly.
+- **System Resource Management:** Intelligently pauses wallpaper playback when running games or movies in full-screen mode, or when running on battery power to save CPU/GPU/RAM.
+- **Smart Auto-Rotation:** Set a timer (e.g., every 15 minutes) to automatically rotate between your favorite wallpapers from a designated gallery.
+- **Interactive Web Wallpapers:** Forwards mouse inputs to HTML/Shadertoy web pages, allowing the desktop to react to your mouse movements.
+- **Taskbar Customization:** Effortlessly set the Windows Taskbar to be fully transparent or blurred for an immersive desktop experience.
+- **Gallery Store:** Integrated built-in thumbnail UI to preview and browse recently used or downloaded video wallpapers in a local repository directory.
 - **Fluent Dashboard:** A modern Win11-styled Control Panel featuring Mica effects, toggles for Auto-Start, Mute, Volume Control, and Wallpaper Types.
 - **True Desktop Integration:** Renders directly to the Windows Desktop layer (behind desktop icons), completely hidden from the Alt+Tab menu and Windows Taskbar.
 

@@ -97,4 +97,74 @@ public static class AppSettings
             key.SetValue("Volume", value);
         }
     }
+
+    public static bool PauseOnBattery
+    {
+        get
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(KeyPath);
+            return (int)(key?.GetValue("PauseOnBattery") ?? 0) == 1;
+        }
+        set
+        {
+            using var key = Registry.CurrentUser.CreateSubKey(KeyPath);
+            key.SetValue("PauseOnBattery", value ? 1 : 0);
+        }
+    }
+
+    public static bool PauseOnFullscreen
+    {
+        get
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(KeyPath);
+            return (int)(key?.GetValue("PauseOnFullscreen") ?? 0) == 1;
+        }
+        set
+        {
+            using var key = Registry.CurrentUser.CreateSubKey(KeyPath);
+            key.SetValue("PauseOnFullscreen", value ? 1 : 0);
+        }
+    }
+
+    public static bool TransparentTaskbar
+    {
+        get
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(KeyPath);
+            return (int)(key?.GetValue("TransparentTaskbar") ?? 0) == 1;
+        }
+        set
+        {
+            using var key = Registry.CurrentUser.CreateSubKey(KeyPath);
+            key.SetValue("TransparentTaskbar", value ? 1 : 0);
+        }
+    }
+
+    public static bool AutoRotate
+    {
+        get
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(KeyPath);
+            return (int)(key?.GetValue("AutoRotate") ?? 0) == 1;
+        }
+        set
+        {
+            using var key = Registry.CurrentUser.CreateSubKey(KeyPath);
+            key.SetValue("AutoRotate", value ? 1 : 0);
+        }
+    }
+
+    public static int AutoRotateInterval
+    {
+        get
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(KeyPath);
+            return (int)(key?.GetValue("AutoRotateInterval") ?? 15);
+        }
+        set
+        {
+            using var key = Registry.CurrentUser.CreateSubKey(KeyPath);
+            key.SetValue("AutoRotateInterval", value);
+        }
+    }
 }

@@ -19,6 +19,11 @@ namespace WallpaperUI
             AutoStartSwitch.IsChecked = AppSettings.GetAutoStart();
             MuteSwitch.IsChecked = AppSettings.IsMuted;
             VolumeSlider.Value = AppSettings.Volume;
+            PauseFullscreenSwitch.IsChecked = AppSettings.PauseOnFullscreen;
+            PauseBatterySwitch.IsChecked = AppSettings.PauseOnBattery;
+            TaskbarSwitch.IsChecked = AppSettings.TransparentTaskbar;
+            AutoRotateSwitch.IsChecked = AppSettings.AutoRotate;
+            RotateSlider.Value = AppSettings.AutoRotateInterval;
             
             if (AppSettings.WallpaperMode == "Web")
                 WebRadioButton.IsChecked = true;
@@ -50,6 +55,12 @@ namespace WallpaperUI
                 
                 AppSettings.NotifySettingsChanged();
             }
+        }
+
+        private void OpenGallery_Click(object sender, RoutedEventArgs e)
+        {
+            var galleryWindow = new GalleryWindow();
+            galleryWindow.Show();
         }
         
         private void SetWebUrl_Click(object sender, RoutedEventArgs e)
@@ -100,6 +111,69 @@ namespace WallpaperUI
         {
             if (!_isInitialized) return;
             AppSettings.IsMuted = false;
+            AppSettings.NotifySettingsChanged();
+        }
+
+        private void PauseFullscreenSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!_isInitialized) return;
+            AppSettings.PauseOnFullscreen = true;
+            AppSettings.NotifySettingsChanged();
+        }
+
+        private void PauseFullscreenSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (!_isInitialized) return;
+            AppSettings.PauseOnFullscreen = false;
+            AppSettings.NotifySettingsChanged();
+        }
+
+        private void PauseBatterySwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!_isInitialized) return;
+            AppSettings.PauseOnBattery = true;
+            AppSettings.NotifySettingsChanged();
+        }
+
+        private void PauseBatterySwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (!_isInitialized) return;
+            AppSettings.PauseOnBattery = false;
+            AppSettings.NotifySettingsChanged();
+        }
+
+        private void TaskbarSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!_isInitialized) return;
+            AppSettings.TransparentTaskbar = true;
+            AppSettings.NotifySettingsChanged();
+        }
+
+        private void TaskbarSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (!_isInitialized) return;
+            AppSettings.TransparentTaskbar = false;
+            AppSettings.NotifySettingsChanged();
+        }
+
+        private void AutoRotateSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!_isInitialized) return;
+            AppSettings.AutoRotate = true;
+            AppSettings.NotifySettingsChanged();
+        }
+
+        private void AutoRotateSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (!_isInitialized) return;
+            AppSettings.AutoRotate = false;
+            AppSettings.NotifySettingsChanged();
+        }
+
+        private void RotateSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!_isInitialized) return;
+            AppSettings.AutoRotateInterval = (int)e.NewValue;
             AppSettings.NotifySettingsChanged();
         }
 
