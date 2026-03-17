@@ -18,6 +18,7 @@
 
 ## 🚀 Features
 - **Video & Web Wallpapers**: Set any local `.mp4`, `.mkv`, `.mov`, or `.html` web pages as your interactive wallpaper.
+- **Video Screensaver**: Includes a built-in screensaver (`.scr`) that plays your video wallpaper when your PC is idle.
 - **Fluent Design Elements**: A modern and sleek user interface following the latest Windows 11 aesthetics.
 - **Optimized & Lightweight**: Utilizes native Windows API tricks to render wallpapers beneath desktop icons smoothly via a separate background engine process.
 - **Audio Controls**: Tweak the wallpaper volume or mute it entirely.
@@ -37,6 +38,10 @@ dotnet publish VideoWallpaper/v2_WPF_UI/WallpaperUI/WallpaperUI.csproj -c Releas
 
 # 2. Build the Wallpaper Engine
 dotnet publish VideoWallpaper/v2_WPF_UI/WallpaperEngine/WallpaperEngine.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o dist/ReadyToUse
+
+# 3. Build the Video Screensaver
+dotnet publish VideoWallpaper/v2_WPF_UI/WallpaperScreensaver/WallpaperScreensaver.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o dist/ReadyToUse
+# (Then rename WallpaperScreensaver.exe to WallpaperScreensaver.scr in the output folder to use it as a screensaver)
 ```
 
 ## 📜 License

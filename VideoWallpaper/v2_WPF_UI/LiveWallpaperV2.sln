@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallpaperUI", "WallpaperUI\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallpaperCore", "WallpaperCore\WallpaperCore.csproj", "{27943DF6-0EFC-4FFF-B98F-3C5F7A1DC22F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallpaperScreensaver", "WallpaperScreensaver\WallpaperScreensaver.csproj", "{B5C4CC76-7DB3-4C19-A49F-9503B677431B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{27943DF6-0EFC-4FFF-B98F-3C5F7A1DC22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27943DF6-0EFC-4FFF-B98F-3C5F7A1DC22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27943DF6-0EFC-4FFF-B98F-3C5F7A1DC22F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5C4CC76-7DB3-4C19-A49F-9503B677431B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5C4CC76-7DB3-4C19-A49F-9503B677431B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5C4CC76-7DB3-4C19-A49F-9503B677431B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5C4CC76-7DB3-4C19-A49F-9503B677431B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
