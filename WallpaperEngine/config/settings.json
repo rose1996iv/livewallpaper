@@ -1,0 +1,17 @@
+{
+  "LayoutMode": 0,
+  "DefaultWallpaperId": "b5c9db5b-4ce1-4c66-9c6d-9de0804a7f2e",
+  "SpanWallpaperId": "b5c9db5b-4ce1-4c66-9c6d-9de0804a7f2e",
+  "PauseOnFullscreen": true,
+  "StartWithWindows": false,
+  "StartPaused": false,
+  "Playback": {
+    "Volume": 0.0,
+    "PlaybackSpeed": 1.0,
+    "IsMuted": true,
+    "UseHardwareAcceleration": true,
+    "StretchMode": 0,
+    "MaintainAspectRatio": true
+  },
+  "MonitorAssignments": []
+}

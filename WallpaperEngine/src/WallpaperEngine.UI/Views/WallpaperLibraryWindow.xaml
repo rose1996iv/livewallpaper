@@ -1,0 +1,47 @@
+<Window x:Class="WallpaperEngine.UI.Views.WallpaperLibraryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Wallpaper Library"
+        Height="560"
+        Width="860"
+        MinHeight="480"
+        MinWidth="760"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,0,0,16">
+            <TextBlock FontSize="22" FontWeight="SemiBold" Text="Wallpaper Library" />
+            <TextBlock Margin="0,6,0,0"
+                       Foreground="#666666"
+                       Text="Import MP4 or WEBM files into the local library. Metadata is stored in JSON under config." />
+        </StackPanel>
+
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding Wallpapers}"
+                  SelectedItem="{Binding SelectedWallpaper}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="240" Header="Name" DisplayMemberBinding="{Binding DisplayName}" />
+                    <GridViewColumn Width="120" Header="Type" DisplayMemberBinding="{Binding MediaType}" />
+                    <GridViewColumn Width="420" Header="Path" DisplayMemberBinding="{Binding RelativePath}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <DockPanel Grid.Row="2" Margin="0,16,0,0">
+            <TextBlock VerticalAlignment="Center"
+                       Foreground="#666666"
+                       Text="{Binding StatusMessage}" />
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Width="120" Margin="0,0,8,0" Content="Add Wallpaper" Click="AddWallpaper_Click" />
+                <Button Width="120" Margin="0,0,8,0" Content="Remove" Command="{Binding RemoveCommand}" />
+                <Button Width="120" Content="Refresh" Command="{Binding RefreshCommand}" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
