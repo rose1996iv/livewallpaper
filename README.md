@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="banner.png" alt="Live Wallpaper Banner" width="100%">
+  <img src="banner.png" alt="Live Wallpaper Banner" width="600">
   
   <h1>✨ LiveWallpaper</h1>
   <p>A performant, modern Windows dynamic/video wallpaper application built with WPF, .NET 8, and WinUI 3 styling.</p>
