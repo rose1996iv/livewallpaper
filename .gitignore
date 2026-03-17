@@ -426,3 +426,9 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+*
+*.zip
+dist/
+LiveWallpaper_V2.0/
+VideoWallpaper_v1.0/
+*.exe
