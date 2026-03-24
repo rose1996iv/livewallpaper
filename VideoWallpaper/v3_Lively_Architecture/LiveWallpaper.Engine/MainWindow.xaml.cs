@@ -1,14 +1,14 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Windows;
 using LibVLCSharp.Shared;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.Core;
 using System.Threading.Tasks;
-using WallpaperCore;
+using LiveWallpaper.Common;
 using System.Windows.Input;
 
-namespace WallpaperEngine;
+namespace LiveWallpaper.Engine;
 
 public partial class MainWindow : Window
 {

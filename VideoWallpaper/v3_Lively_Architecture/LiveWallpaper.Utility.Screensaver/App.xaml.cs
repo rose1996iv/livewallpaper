@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
-using WallpaperCore;
+using LiveWallpaper.Common;
 
-namespace WallpaperScreensaver;
+namespace LiveWallpaper.Utility.Screensaver;
 
 public partial class App : Application
 {
@@ -85,10 +85,10 @@ public partial class App : Application
 
     private void ShowSetup()
     {
-        // Simply launch the WallpaperUI project for settings
+        // Simply launch the UI project for settings
         try
         {
-            Process.Start("WallpaperUI.exe");
+            Process.Start("LiveWallpaper.UI.exe");
         }
         catch { }
         Application.Current.Shutdown();
@@ -98,7 +98,7 @@ public partial class App : Application
     {
         try
         {
-            string enginePath = System.IO.Path.Combine(AppContext.BaseDirectory, "WallpaperEngine.exe");
+            string enginePath = System.IO.Path.Combine(AppContext.BaseDirectory, "LiveWallpaper.Engine.exe");
             if (System.IO.File.Exists(enginePath))
             {
                 Process.Start(new ProcessStartInfo

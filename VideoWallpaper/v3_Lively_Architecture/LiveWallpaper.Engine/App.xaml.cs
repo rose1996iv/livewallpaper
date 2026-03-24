@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using LibVLCSharp.Shared;
-using WallpaperCore;
+using LiveWallpaper.Common;
 
-namespace WallpaperEngine;
+namespace LiveWallpaper.Engine;
 
 public partial class App : System.Windows.Application
 {
@@ -174,10 +174,10 @@ public partial class App : System.Windows.Application
 
     private void OpenDashboard()
     {
-        string uiPath = System.IO.Path.Combine(AppContext.BaseDirectory, "WallpaperUI.exe");
+        string uiPath = System.IO.Path.Combine(AppContext.BaseDirectory, "LiveWallpaper.UI.exe");
         if (System.IO.File.Exists(uiPath))
         {
-            var runningUI = System.Diagnostics.Process.GetProcessesByName("WallpaperUI");
+            var runningUI = System.Diagnostics.Process.GetProcessesByName("LiveWallpaper.UI");
             if (runningUI.Length == 0)
             {
                 try
